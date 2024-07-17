@@ -1,0 +1,20 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "📱 Launch On-Device App",
+      "type": "node-terminal",
+      "command": "npm run start:android",
+      "request": "launch"
+    },
+    {
+      "name": "🌐 Launch App",
+      "type": "node-terminal",
+      "command": "npm run start",
+      "request": "launch"
+    }
+  ],
+}
