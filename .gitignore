@@ -50,6 +50,7 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/*.code-workspace
 .history/*
 
 
@@ -68,3 +69,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+/ssl

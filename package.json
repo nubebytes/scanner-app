@@ -6,12 +6,15 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start:android": "cap run android -l",
+    "start": "ng serve --ssl",
+    "start:android": "ionic cap run android -l --external --ssl",
     "build": "ng build",
+    "build:android": "ionic cap build android --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "ssl": "ionic ssl generate --key-path=./ssl/key.pem --cert-path=./ssl/cert.pem",
+    "ssl:android": "openssl pkcs12 -export -out ssl/certificate.pfx -inkey ssl/key.pem -in ssl/cert.pem -passout pass:ssl-pass -legacy"
   },
   "private": true,
   "dependencies": {
@@ -47,13 +50,17 @@
     "@angular/language-service": "^18.0.0",
     "@capacitor/cli": "6.1.0",
     "@ionic/angular-toolkit": "^11.0.1",
+    "@ionic/cli": "7.2.0",
+    "@jcesarmobile/ssl-skip": "0.4.0",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.2.1",
     "eslint-plugin-prefer-arrow": "1.2.2",
+    "eslint-plugin-prettier": "5.2.1",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.0",
@@ -61,6 +68,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "native-run": "2.0.1",
+    "prettier": "3.3.3",
     "typescript": "~5.4.0"
   }
 }

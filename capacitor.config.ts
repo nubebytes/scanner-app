@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'nb.es.simple-scanner',
   appName: 'simple-scanner',
-  webDir: 'www'
+  webDir: 'www',
 };
 
 export default config;

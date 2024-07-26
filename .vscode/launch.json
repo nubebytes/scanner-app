@@ -5,16 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "📱 Launch On-Device App",
+      "name": "📱 Launch Android",
       "type": "node-terminal",
       "command": "npm run start:android",
       "request": "launch"
     },
     {
-      "name": "🌐 Launch App",
+      "name": "🌐 Launch Web",
       "type": "node-terminal",
       "command": "npm run start",
       "request": "launch"
     }
-  ],
+  ]
 }

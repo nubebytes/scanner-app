@@ -1,3 +1,11 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"]
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@ionic/angular/common",
+    "@ionic/angular"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": "always",
+    "source.organizeImports": "always"
+  },
+  "editor.formatOnSave": true
 }

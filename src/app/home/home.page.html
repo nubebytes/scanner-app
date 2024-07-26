@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Escáner </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Escáner</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @for (code of codes; track $index) {
+    <ion-card
+      class="ion-activatable"
+      [color]="activeIndex === $index && 'primary'"
+      (click)="activeIndex = $index"
+    >
+      <ion-ripple-effect></ion-ripple-effect>
+
+      <ion-card-content>
+        <ion-icon name="qr-code-outline" />
+        <ion-text>
+          @if (code) {
+            Código {{ $index + 1 }}: {{ code }}
+          } @else {
+            Toca y escanea el código
+          }
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  }
+
+  @if (codes[0] && codes[1]) {
+    <ion-card [color]="getContentColor()">
+      <ion-card-content>
+        <ion-icon [name]="isSameCode() ? 'checkmark-circle-outline' : 'close-circle-outline'" />
+        {{ isSameCode() ? 'Los códigos coinciden' : 'Los códigos no coinciden' }}
+      </ion-card-content>
+    </ion-card>
+  }
+</ion-content>
