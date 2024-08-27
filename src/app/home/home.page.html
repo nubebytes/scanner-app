@@ -15,7 +15,7 @@
     <ion-card
       class="ion-activatable"
       [color]="activeIndex === $index && 'primary'"
-      (click)="activeIndex = $index"
+      (click)="activeIndex = $index; scanBarcode()"
     >
       <ion-ripple-effect></ion-ripple-effect>
 
@@ -40,7 +40,12 @@
       </ion-card-content>
     </ion-card>
   }
-  <ion-button style="margin-inline: 10px" expand="block" (click)="scanBarcode()"
-    >Escanear</ion-button
+
+  <ion-button
+    style="margin-inline: 10px; margin-top: 10px"
+    color="danger"
+    expand="block"
+    (click)="cleanBarcodes()"
+    >Limpiar</ion-button
   >
 </ion-content>

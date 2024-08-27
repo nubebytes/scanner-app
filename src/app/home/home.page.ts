@@ -96,6 +96,10 @@ export class HomePage {
     return this.isSameCode() ? 'success' : 'danger';
   };
 
+  cleanBarcodes = () => {
+    this.codes = [undefined, undefined];
+  };
+
   //Camera Barcode Scanner
   public async scanBarcode(): Promise<void> {
     this.assignCode((await CapacitorBarcodeScanner.scanBarcode(this.options)).ScanResult);
