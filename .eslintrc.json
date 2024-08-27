@@ -39,6 +39,12 @@
             "prefix": "app",
             "style": "camelCase"
           }
+        ],
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
         ]
       }
     },
@@ -46,7 +52,7 @@
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended", "plugin:prettier/recommended"],
       "rules": {
-        "prettier/prettier": ["error", { "parser": "angular" }]
+        "prettier/prettier": ["error", { "parser": "angular", "endOfLine": "auto" }]
       }
     }
   ]

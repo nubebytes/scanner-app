@@ -1,5 +1,11 @@
 import { Component, effect, inject } from '@angular/core';
 import {
+  CapacitorBarcodeScanner,
+  CapacitorBarcodeScannerOptions,
+  CapacitorBarcodeScannerTypeHintALLOption,
+} from '@capacitor/barcode-scanner';
+import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -30,6 +36,7 @@ type Code = string | undefined;
   standalone: true,
   imports: [
     IonText,
+    IonButton,
     IonCol,
     IonRow,
     IonIcon,
@@ -49,6 +56,11 @@ type Code = string | undefined;
 })
 export class HomePage {
   private scannerService = inject(ScannerService);
+
+  private options: CapacitorBarcodeScannerOptions = {
+    scanButton: true,
+    hint: CapacitorBarcodeScannerTypeHintALLOption.ALL,
+  };
 
   codes: [Code, Code] = [undefined, undefined];
 
@@ -82,4 +94,13 @@ export class HomePage {
     if (!first || !second) return undefined;
     return this.isSameCode() ? 'success' : 'danger';
   };
+
+  cleanBarcodes = () => {
+    this.codes = [undefined, undefined];
+  };
+
+  //Camera Barcode Scanner
+  public async scanBarcode(): Promise<void> {
+    this.assignCode((await CapacitorBarcodeScanner.scanBarcode(this.options)).ScanResult);
+  }
 }
