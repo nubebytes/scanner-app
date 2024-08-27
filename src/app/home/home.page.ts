@@ -57,7 +57,6 @@ type Code = string | undefined;
 export class HomePage {
   private scannerService = inject(ScannerService);
 
-  public barcodeResult!: string;
   private options: CapacitorBarcodeScannerOptions = {
     scanButton: true,
     hint: CapacitorBarcodeScannerTypeHintALLOption.ALL,
