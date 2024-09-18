@@ -35,15 +35,15 @@
   @if (codes[0] && codes[1]) {
     <ion-card [color]="getContentColor()">
       <ion-card-content>
-        <ion-icon [name]="isSameCode() ? 'checkmark-circle-outline' : 'close-circle-outline'" />
-        {{ isSameCode() ? 'Los códigos coinciden' : 'Los códigos no coinciden' }}
+        <ion-icon [name]="getContetIcon()" />
+        {{ getContentText() }}
       </ion-card-content>
     </ion-card>
   }
 
   <ion-button
     style="margin-inline: 10px; margin-top: 10px"
-    color="danger"
+    color="primary"
     expand="block"
     (click)="cleanBarcodes()"
     >Limpiar</ion-button

@@ -24,10 +24,21 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { checkmarkCircleOutline, closeCircleOutline, qrCodeOutline } from 'ionicons/icons';
+import {
+  alertCircleOutline,
+  checkmarkCircleOutline,
+  closeCircleOutline,
+  qrCodeOutline,
+} from 'ionicons/icons';
 import { ScannerService } from 'src/services/scanner.service';
 
 type Code = string | undefined;
+
+export enum CompareStatus {
+  Same = 0,
+  Different = 1,
+  Partial = 2,
+}
 
 @Component({
   selector: 'app-home',
@@ -56,6 +67,7 @@ type Code = string | undefined;
 })
 export class HomePage {
   private scannerService = inject(ScannerService);
+  minCompareLength = 5;
 
   private options: CapacitorBarcodeScannerOptions = {
     scanButton: true,
@@ -71,6 +83,7 @@ export class HomePage {
       qrCodeOutline,
       checkmarkCircleOutline,
       closeCircleOutline,
+      alertCircleOutline,
     });
 
     effect(() => {
@@ -84,15 +97,65 @@ export class HomePage {
     this.activeIndex = Number(!this.activeIndex);
   };
 
-  isSameCode = () => {
+  getCompareStatus = () => {
     const [first, second] = this.codes;
-    return first === second;
+
+    if (first === second) {
+      return CompareStatus.Same;
+    }
+    const firstStr = first?.toString() ?? '';
+    const secondStr = second?.toString() ?? '';
+
+    const minLength = Math.min(firstStr?.length, secondStr?.length);
+
+    for (let i = minLength; i >= this.minCompareLength; i--) {
+      if (firstStr.substring(0, i) === secondStr.substring(0, i)) {
+        return CompareStatus.Partial;
+      }
+    }
+    return CompareStatus.Different;
   };
 
   getContentColor = () => {
-    const [first, second] = this.codes;
-    if (!first || !second) return undefined;
-    return this.isSameCode() ? 'success' : 'danger';
+    const status = this.getCompareStatus();
+    switch (status) {
+      case CompareStatus.Same:
+        return 'success';
+      case CompareStatus.Different:
+        return 'danger';
+      case CompareStatus.Partial:
+        return 'warning';
+      default:
+        return undefined;
+    }
+  };
+
+  getContetIcon = () => {
+    const status = this.getCompareStatus();
+    switch (status) {
+      case CompareStatus.Same:
+        return 'checkmark-circle-outline';
+      case CompareStatus.Different:
+        return 'close-circle-outline';
+      case CompareStatus.Partial:
+        return 'alert-circle-outline';
+      default:
+        return undefined;
+    }
+  };
+
+  getContentText = () => {
+    const status = this.getCompareStatus();
+    switch (status) {
+      case CompareStatus.Same:
+        return 'Los códigos coinciden';
+      case CompareStatus.Different:
+        return 'Los códigos no coinciden';
+      case CompareStatus.Partial:
+        return 'Los códigos coinciden parcialmente';
+      default:
+        return '';
+    }
   };
 
   cleanBarcodes = () => {
