@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'nb.es.simple-scanner',
-  appName: 'simple-scanner',
+  appName: 'Barcode Comparer',
   webDir: 'www',
 };
 
