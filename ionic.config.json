@@ -1,5 +1,5 @@
 {
-  "name": "simple-scanner",
+  "name": "Barcode Comparer",
   "integrations": {
     "capacitor": {}
   },
