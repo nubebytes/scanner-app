@@ -68,6 +68,7 @@ export enum CompareStatus {
 export class HomePage {
   private scannerService = inject(ScannerService);
   minCompareLength = 5;
+  substring = '';
 
   private options: CapacitorBarcodeScannerOptions = {
     scanButton: true,
@@ -100,17 +101,15 @@ export class HomePage {
   getCompareStatus = () => {
     const [first, second] = this.codes;
 
-    if (first === second) {
-      return CompareStatus.Same;
-    }
     const firstStr = first?.toString() ?? '';
     const secondStr = second?.toString() ?? '';
 
     const minLength = Math.min(firstStr?.length, secondStr?.length);
 
     for (let i = minLength; i >= this.minCompareLength; i--) {
-      if (firstStr.substring(0, i) === secondStr.substring(0, i)) {
-        return CompareStatus.Partial;
+      if (secondStr.includes(firstStr.substring(0, i))) {
+        this.substring = firstStr.substring(0, i);
+        return i == minLength ? CompareStatus.Same : CompareStatus.Partial;
       }
     }
     return CompareStatus.Different;
@@ -148,11 +147,11 @@ export class HomePage {
     const status = this.getCompareStatus();
     switch (status) {
       case CompareStatus.Same:
-        return 'Los códigos coinciden';
+        return 'El código 2 incluye el código 1: ' + this.substring;
       case CompareStatus.Different:
-        return 'Los códigos no coinciden';
+        return 'El código 2 no contiene el código 1';
       case CompareStatus.Partial:
-        return 'Los códigos coinciden parcialmente';
+        return 'El código 2 contiene parcialmente el código 1: ' + this.substring;
       default:
         return '';
     }
